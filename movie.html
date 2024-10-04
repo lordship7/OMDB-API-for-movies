@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+ body{ 
+          
+         align-items: center;
+          justify-content: center;
+           height: 100vh;
+            background-image: url(image/images\ \(3\).jpeg);
+             background-size: cover;
+              text-align: center;
+               
+  
+
+        }
+        /* style the search field */
+        form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+        
+        h1{
+            color: white;
+            font-family: algerian;
+            text-align: center;
+            font-size: 60px;
+            
+            }
+        
+
+        .movie {
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid #2f2673;
+        display: inline-block; justify-content: right;
+        align-items: center;
+        color: black;
+        font-size: 10px;
+        }
+        img {
+        max-width: 50px;
+    
+        }
+        .script{
+          justify-content: space-evenly;
+          text-align: center;
+          text-align: left;
+          
+        }
+        .movie{
+          border-radius: 30%;
+          padding: 5%;   
+  width: 150px;
+  height: 150px;
+  background-color: rgb(54, 50, 115);
+  animation-name: example;
+  animation-duration: 8s;
+}
+          
+        form{
+          align-items: center;
+        }
+        h1:hover {
+        color: orange;}
+
+        @keyframes example {
+  from {background-color: red;}
+  to {background-color: yellow;}}
+
+input[type=text]{
+  position: relative;
+  padding: 15px 40px 15px 20px;
+  width: 20px;
+  color: orange;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightblue; 
+  transition: width 0.4s ease;
+  outline: none;
+&:focus{ width: 300px; }
+}
+.movie h2{
+  font-size: 18px;
+  margin: 10px 5px;
+  line-height: 20px;
+  white-space: no wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+        </style>
+        </head>
+        <body>
+        <h1>Movie List</h1>
+        <form class="form" action="action_page.php">
+            <input type="text"
+            placeholder="search....."
+            name="movies">
+        <button type="submit">🔎<i class=""></i> 
+        </button>
+        </form>
+        <div id="movie-container"></div> <!-- Where movie results will be displayed -->
+
+
+
+<script>
+const movieContainer = document.getElementById('movie-container');
+ const apiKey = 'fb5cd9a6'; 
+// Replace with your OMDb API key
+const searchTerm = 'Superman'; 
+ // Example search term for fetching movies
+ // Function to fetch movie data from OMDb API
+const fetchMovies = async () => {
+ try {
+ const response = await fetch(`https://www.omdbapi.com/?s=${searchTerm}&apikey=${apiKey}
+`);
+ const data = await response.json();
+ if (data.Response === "True")
+  {data.Search.forEach(movie =>
+     {const movieDiv = document.createElement('div');
+ movieDiv.classList.add('movie');
+ movieDiv.innerHTML = `
+ <img src="${movie.Poster}" alt="${movie.Title}">
+ <h2>${movie.Title}</h2>
+ <p>Year: ${movie.Year}</p>
+`;
+ movieContainer.appendChild(movieDiv);
+ });
+} else {
+ movieContainer.innerHTML = `<p>No movies found for "${searchTerm}"</p>`;
+ }
+} catch (error) {
+console.error('Error fetching movie data:', error);
+movieContainer.innerHTML = `<p>There was an error fetching the movie data.</p>`;
+ }
+};
+fetchMovies(); // Call the function to load movies on page load
+
+</script>
+
+
+
+</body>
+</html>
